@@ -8,12 +8,11 @@ def sort_list_interval(unsorted_list: List[int], a, b) -> None:
     # swaps to segregate 2 groups
     start, end = a, pivot
     while start < end:
-        if unsorted_list[start] <= unsorted_list[pivot]:
+        while unsorted_list[start] <= unsorted_list[pivot] and start < end:
             start += 1
-        elif unsorted_list[end] >= unsorted_list[pivot]:
+        while unsorted_list[end] >= unsorted_list[pivot] and start < end:
             end -= 1
-        else:
-            unsorted_list[start], unsorted_list[end] = unsorted_list[end], unsorted_list[start]
+        unsorted_list[start], unsorted_list[end] = unsorted_list[end], unsorted_list[start]
     
     unsorted_list[start], unsorted_list[pivot] = unsorted_list[pivot], unsorted_list[start]
     pivot = start
@@ -23,7 +22,7 @@ def sort_list_interval(unsorted_list: List[int], a, b) -> None:
     sort_list_interval(unsorted_list, pivot, b)
 
 def sort_list(unsorted_list: List[int]) -> List[int]:
-    sort_list_interval(unsorted_list, 0, len(unsorted_list)-1)
+    sort_list_interval(unsorted_list, 0, len(unsorted_list))
     return unsorted_list
 
 if __name__ == '__main__':
