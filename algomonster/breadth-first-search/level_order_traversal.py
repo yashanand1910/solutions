@@ -11,19 +11,16 @@ def level_order_traversal(root: Node) -> List[List[int]]:
     def bfs(root, res):
         queue = deque([root])
         left_most = root
-        level = 0
         while len(queue) > 0:
             if queue[0] is left_most:
-               res[level] = list(queue)
-               level += 1
-               left_most = node.left if node.left else node.right
+                res.append(list(queue))
+                left_most = queue[0].left if queue[0].left else queue[0].right
             node = queue.popleft()
             if node.left:
-                n += 1
                 queue.append(node.left)
             if node.right:
-                n += 1
                 queue.append(node.right)
+        return res
     res = []
     return bfs(root, res)
             
