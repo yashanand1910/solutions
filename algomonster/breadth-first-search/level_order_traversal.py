@@ -13,7 +13,7 @@ def level_order_traversal(root: Node) -> List[List[int]]:
         left_most = root
         while len(queue) > 0:
             if queue[0] is left_most:
-                res.append(list(queue))
+                res.append(map(lambda x: x.val, list(queue)))
                 left_most = queue[0].left if queue[0].left else queue[0].right
             node = queue.popleft()
             if node.left:
