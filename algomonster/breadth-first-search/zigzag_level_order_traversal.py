@@ -14,8 +14,8 @@ def zig_zag_traversal(root: Node) -> List[List[int]]:
         left_most = root
         while len(queue) > 0:
             node = queue[0]
-            left = node.left if node else None
-            right = node.right if node else None
+            left = node.left 
+            right = node.right 
             left_most = (left if left else right) if left_most is None else left_most
             if node is left_most:
                 list.append([])
