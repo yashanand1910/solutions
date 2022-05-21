@@ -1,43 +1,42 @@
 from typing import List
 from collections import deque
 
-alphabet = 'abcdefghijklmnopqrstuvwxyz'
-
 def construct_graph(words, letters):
     graph = { letter: [] for letter in letters }
-    for word in words:
-        for i in range(len(word) - 1):
-            if word[i] != word[i + 1]:
-                graph[word[i]].append(word[i + 1])
-    return graph
-
-def count_parents(graph):
-    count = [0] * 26
-    for parent in graph:
-        for child in graph[parent]:
-            count[ord(child) - 97] += 1
-    return count
+    parents = { letter: 0 for letter in letters } 
+    for i in range(len(words) - 1):
+        a, b = words[i], words[i + 1]
+        n = 0
+        while a[n] == b[n] and n < len(a) - 1 and n < len(b) - 1:
+            n += 1
+        graph[a[n]].append(b[n])
+        parents[b[n]] += 1
+    return graph, parents
 
 def alien_order(words: List[str]) -> str:
     letters = set()
     for word in words:
         for letter in list(word):
             letters.add(letter)
-    graph = construct_graph(words, letters)
-    parents = count_parents(graph)
+    graph, parents  = construct_graph(words, letters)
     queue = deque()
-    for i, count in enumerate(parents):
-        if chr(i + 97) in letters and count == 0:
-            queue.append(chr(i + 97))
+    for letter, count in parents.items():
+        if count == 0:
+            queue.append(letter)
     res = '' 
     while queue:
+        sorted_list = list(queue)
+        sorted_list.sort()
+        queue = deque(sorted_list)
         node = queue.popleft()
         res += node
         for child in graph[node]:
-            parents[ord(child) - 97] -= 1
-            if parents[ord(child) - 97] == 0:
+            parents[child] -= 1
+            if parents[child] == 0:
                 queue.append(child)
-    return res
+    if len(res) == len(letters):
+        return res
+    return ''
 
 if __name__ == '__main__':
     words = input().split()
