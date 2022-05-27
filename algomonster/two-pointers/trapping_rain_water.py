@@ -45,8 +45,6 @@ def trapping_rain_water(elevations: List[int]) -> int:
                 last_max = i
         i += 1
 
-    print(pool)
-
     # fill water
     for a, b in pool:
         accum = 0
