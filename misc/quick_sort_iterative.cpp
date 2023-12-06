@@ -90,7 +90,7 @@ void qsort(int start, int end, list &arr) {
 
 /** @brief Sort elements of an array.
  *
- * Uses iterative quick sort.
+ * TODO: Uses iterative quick sort.
  *
  * @param[in]   start Starting index
  * @param[in]   end   Ending index
